@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using Microsoft.Extensions.DependencyInjection;
+using NuGetPackager.Services;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +21,12 @@ namespace NuGetPackager
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        public void Initialise(IServiceProvider serviceProvider)
+        {
+            NuGetService service = serviceProvider.GetRequiredService<NuGetService>();
+            nuSpecFormView.DataContext = new ViewModels.NuSpecViewModel(service);
         }
     }
 }

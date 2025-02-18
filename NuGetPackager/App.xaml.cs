@@ -1,4 +1,6 @@
-﻿using System.Configuration;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Configuration;
 using System.Data;
 using System.Windows;
 
@@ -9,6 +11,26 @@ namespace NuGetPackager
     /// </summary>
     public partial class App : Application
     {
-    }
+        private readonly ServiceProvider serviceProvider;
 
+        public App()
+        {
+            IServiceCollection services = new ServiceCollection();
+            services.AddSingleton<MainWindow>(provider =>
+            {
+                MainWindow window = new MainWindow();
+                window.Initialise(serviceProvider);
+                return window;
+            });
+            services.AddSingleton<Services.NuGetService>();
+            serviceProvider = services.BuildServiceProvider();
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            MainWindow window = serviceProvider.GetRequiredService<MainWindow>();
+            window.Show();
+        }
+    }
 }
