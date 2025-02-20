@@ -7,19 +7,31 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel Margin="50">
+        <DockPanel Margin="50">
+            <Button DockPanel.Dock="Bottom" Content="Generate" Margin="0 10 0 0" Command="{Binding SubmitCommand}" />
 
-            <TextBlock Text="Id" />
-            <TextBox Text="{Binding Model.Id, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="Version" />
-            <TextBox Text="{Binding Model.Version, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="Authors" />
-            <TextBox Text="{Binding Model.Authors, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="Owners" />
-            <TextBox Text="{Binding Model.Owners, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="Description" />
-            <TextBox Text="{Binding Model.Description, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Content="Generate" Margin="0 10 0 0" Command="{Binding SubmitCommand}" />
-        </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Id" />
+                <TextBox Text="{Binding Model.Id, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Version" />
+                <TextBox Text="{Binding Model.Version, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Authors" />
+                <TextBox Text="{Binding Model.Authors, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Owners" />
+                <TextBox Text="{Binding Model.Owners, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Description" />
+                <TextBox Text="{Binding Model.Description, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Framework" />
+                <ComboBox ItemsSource="{Binding Model.Frameworks}" SelectedItem="{Binding Model.SelectedFramework}" />
+                <TextBlock Text="Files" />
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Left">
+                        <Button Content="..." Width="24" Height="20" Margin="2 0 2 2" Command="{Binding SelectFilesCommand}"></Button>
+                        <Button Content="✕" ToolTip="Remove selected files" Width="24" Height="20" Margin="2 0 2 2" Command="{Binding RemoveSelectedFilesCommand}"></Button>
+                    </StackPanel>
+                    <ListBox x:Name="filesListBox" ItemsSource="{Binding Model.Files}" Height="96" SelectionMode="Extended" />
+                </DockPanel>
+            </StackPanel>
+        </DockPanel>
     </Grid>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NuGetPackager.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace NuGetPackager.Views
         public NuSpecFormView()
         {
             InitializeComponent();
+            filesListBox.SelectionChanged += FilesListBox_SelectionChanged;
+        }
+
+        private void FilesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DataContext is NuSpecViewModel viewModel)
+            {
+                // SelectedItems is not bindable, so just do this workaround
+                viewModel.SelectedFiles = filesListBox.SelectedItems.Cast<string>().ToList();
+            }
         }
     }
 }

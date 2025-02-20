@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO.Packaging;
 using System.Linq;
@@ -11,13 +12,16 @@ namespace NuGetPackager.Models
 {
     public class NuSpecModel : ObservableObject
     {
-        private string id = "blah";
+        public IReadOnlyList<string> Frameworks { get; } = ["net48", "netstandard2.0", "netstandard2.1"];
+
+        private string id = string.Empty;
         private string version = string.Empty;
         private string authors = string.Empty;
         private string owners = string.Empty;
         private string description = string.Empty;
         private string license = string.Empty;
         private string requireLicenseAcceptance = string.Empty;
+        private string selectedFramework = string.Empty;
 
         public string Id
         {
@@ -92,5 +96,17 @@ namespace NuGetPackager.Models
                 OnPropertyChanged(nameof(RequireLicenseAcceptance));
             }
         }
+
+        public string SelectedFramework
+        {
+            get => selectedFramework;
+            set
+            {
+                selectedFramework = value;
+                OnPropertyChanged(nameof(SelectedFramework));
+            }
+        }
+
+        public ObservableCollection<string> Files { get; } = new ObservableCollection<string>();
     }
 }
