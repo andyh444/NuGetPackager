@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <views:NuSpecFormView x:Name="nuSpecFormView" />
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Left" Width="200" Background="LightGray">
+                <Button Content="Package" Command="{Binding NavigateToPackagePageCommand}" Margin="10" />
+                <Button Content="Push"  Command="{Binding NavigateToPushPageCommand}" Margin="10"/>
+            </StackPanel>
+            <Frame Name="MainFrame" Content="{Binding Navigation.CurrentView}" NavigationUIVisibility="Hidden" />
+        </DockPanel>
     </Grid>
 </Window>

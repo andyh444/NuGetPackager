@@ -22,7 +22,8 @@ namespace NuGetPackager
                 window.Initialise(serviceProvider);
                 return window;
             });
-            services.AddSingleton<Services.NuGetService>();
+            services.AddScoped<Services.NuGetService>();
+            services.AddScoped<Services.NavigationService>();
             serviceProvider = services.BuildServiceProvider();
         }
 
