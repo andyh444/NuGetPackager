@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 using NuGetPackager.Services;
 using NuGetPackager.Views;
 using System;
@@ -9,19 +10,19 @@ using System.Threading.Tasks;
 
 namespace NuGetPackager.ViewModels
 {
-    internal class MainViewModel
+    public class MainViewModel
     {
         public NavigationService Navigation { get; }
         public IRelayCommand NavigateToPackagePageCommand { get; }
         public IRelayCommand NavigateToPushPageCommand { get; }
 
-        public MainViewModel(NavigationService navigation, IRelayCommand navigateToPackagePageCommand, IRelayCommand navigateToPushPageCommand)
+        public MainViewModel(NavigationService navigation, IServiceProvider serviceProvider)
         {
-            NavigateToPackagePageCommand = navigateToPackagePageCommand;
-            NavigateToPushPageCommand = navigateToPushPageCommand;
             Navigation = navigation;
+            NavigateToPackagePageCommand = new RelayCommand(() => Navigation.NavigateToPage<PackagePage>());
+            NavigateToPushPageCommand = new RelayCommand(() => Navigation.NavigateToPage<PushPage>());
 
-            NavigateToPackagePageCommand.Execute(null);
+            Navigation.NavigateToPage<PackagePage>();
         }
     }
 }

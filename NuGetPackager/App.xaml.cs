@@ -16,14 +16,19 @@ namespace NuGetPackager
         public App()
         {
             IServiceCollection services = new ServiceCollection();
-            services.AddSingleton<MainWindow>(provider =>
-            {
-                MainWindow window = new MainWindow();
-                window.Initialise(serviceProvider);
-                return window;
-            });
-            services.AddScoped<Services.NuGetService>();
-            services.AddScoped<Services.NavigationService>();
+            // services
+            services.AddSingleton<Services.NuGetService>();
+            services.AddSingleton<Services.NavigationService>();
+
+            // view models
+            services.AddSingleton<ViewModels.MainViewModel>();
+            services.AddSingleton<ViewModels.NuSpecViewModel>();
+
+            // views
+            services.AddSingleton<MainWindow>();
+            services.AddTransient<Views.PackagePage>();
+            services.AddTransient<Views.PushPage>();
+
             serviceProvider = services.BuildServiceProvider();
         }
 

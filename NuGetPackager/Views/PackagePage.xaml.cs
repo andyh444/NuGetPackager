@@ -21,15 +21,10 @@ namespace NuGetPackager.Views
     /// </summary>
     public partial class PackagePage : Page
     {
-        public PackagePage()
+        public PackagePage(NuSpecViewModel viewModel)
         {
             InitializeComponent();
-        }
-
-        public void SetContext(NuSpecViewModel viewModel)
-        {
             DataContext = viewModel;
-            nuSpecFormView.DataContext = viewModel;
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.DependencyInjection;
+using NuGetPackager.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,9 +11,9 @@ using System.Windows.Controls;
 
 namespace NuGetPackager.Services
 {
-    internal class NavigationService : ObservableObject
+    public class NavigationService : ObservableObject
     {
-
+        private readonly IServiceProvider serviceProvider;
         private Page? _currentView;
 
         public Page? CurrentView
@@ -22,6 +24,16 @@ namespace NuGetPackager.Services
                 _currentView = value;
                 OnPropertyChanged(nameof(CurrentView));
             }
+        }
+
+        public NavigationService(IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider;
+        }
+
+        public void NavigateToPage<T>() where T : Page
+        {
+            CurrentView = serviceProvider.GetService<T>();
         }
     }
 }

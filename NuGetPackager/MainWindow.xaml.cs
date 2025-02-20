@@ -22,27 +22,10 @@ namespace NuGetPackager
     /// </summary>
     public partial class MainWindow : Window
     {
-        private NavigationService? navigation;
-
-        private PackagePage packagePage;
-        private PushPage pushPage;
-
-        public MainWindow()
+        public MainWindow(MainViewModel viewModel)
         {
             InitializeComponent();
-            packagePage = new PackagePage();
-            pushPage = new PushPage();
-        }
-
-        public void Initialise(IServiceProvider serviceProvider)
-        {
-            packagePage.SetContext(new NuSpecViewModel(serviceProvider.GetRequiredService<NuGetService>()));
-
-            navigation = serviceProvider.GetRequiredService<NavigationService>();
-
-            DataContext = new MainViewModel(navigation,
-                new RelayCommand(() => navigation.CurrentView = packagePage),
-                new RelayCommand(() => navigation.CurrentView = pushPage));
+            DataContext = viewModel;
         }
     }
 }

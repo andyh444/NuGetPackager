@@ -12,13 +12,14 @@ namespace NuGetPackager.ViewModels
 {
     public class NuSpecViewModel : ObservableObject
     {
-        public NuSpecModel Model { get; } = new NuSpecModel();
+        public NuSpecModel Model { get; }
 
         public IAsyncRelayCommand SubmitCommand { get; }
 
         public NuSpecViewModel(NuGetService service)
         {
             SubmitCommand = new AsyncRelayCommand(SubmitAsync);
+            Model = new NuSpecModel();
         }
 
         private async Task SubmitAsync()

@@ -6,10 +6,11 @@
       xmlns:local="clr-namespace:NuGetPackager.Views"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PackagePage">
+      Title="PackagePage"
+      DataContext="{Binding}">
 
     <Grid>
-        <local:NuSpecFormView x:Name="nuSpecFormView" />
+        <local:NuSpecFormView x:Name="nuSpecFormView" DataContext="{Binding}" />
 
     </Grid>
 </Page>
